@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vita Salud — Tu guía de salud personalizada</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep:   #2D5A3D;
+      --green-mid:    #4A7C59;
+      --green-light:  #D6EAD8;
+      --green-pale:   #F0F7F1;
+      --cream:        #FAFAF7;
+      --text-dark:    #1A2E20;
+      --text-mid:     #4A5E4F;
+      --text-soft:    #8A9E8F;
+      --white:        #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--green-deep);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,124,89,0.35) 0%, transparent 70%);
+      top: -200px; right: -200px;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(214,234,216,0.12) 0%, transparent 70%);
+      bottom: -100px; left: 100px;
+      pointer-events: none;
+    }
+
+    .hero-left {
+      padding: 80px 60px 80px 80px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.9s ease forwards 0.2s;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(214,234,216,0.15);
+      border: 1px solid rgba(214,234,216,0.3);
+      color: var(--green-light);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #6FCF8A;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 5vw, 72px);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .hero-title span {
+      color: var(--green-light);
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      max-width: 420px;
+      margin-bottom: 48px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 320px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 28px;
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--white);
+      color: var(--green-deep);
+    }
+
+    .btn-primary:hover {
+      background: var(--green-light);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn svg {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+    }
+
+    .btn-label {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .btn-label small {
+      font-size: 11px;
+      opacity: 0.6;
+      font-weight: 400;
+    }
+
+    .authors {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .author-avatars {
+      display: flex;
+    }
+
+    .avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--green-deep);
+      background: var(--green-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .avatar:last-child { margin-left: -10px; }
+
+    .author-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.4;
+    }
+
+    .author-text strong {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+    }
+
+    /* ── VIDEO SIDE ── */
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 80px 80px 40px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.9s ease forwards 0.5s;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 340px;
+    }
+
+    .video-frame {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+      aspect-ratio: 9/16;
+      background: #000;
+      position: relative;
+    }
+
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .video-glow {
+      position: absolute;
+      inset: -20px;
+      border-radius: 48px;
+      background: radial-gradient(ellipse at center, rgba(74,124,89,0.4) 0%, transparent 70%);
+      z-index: -1;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 100px 80px;
+      background: var(--cream);
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
+      color: var(--text-dark);
+      max-width: 560px;
+      line-height: 1.2;
+      margin-bottom: 64px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border: 1px solid rgba(74,124,89,0.1);
+      border-radius: 20px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .feature-card.visible {
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .feature-card:hover {
+      border-color: var(--green-mid);
+      box-shadow: 0 8px 32px rgba(74,124,89,0.12);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: var(--green-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .feature-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── CTA BOTTOM ── */
+    .cta {
+      background: var(--green-deep);
+      padding: 100px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,124,89,0.4) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      margin-bottom: 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta .btn-primary {
+      padding: 18px 36px;
+      font-size: 16px;
+    }
+
+    .cta .btn-secondary {
+      padding: 18px 36px;
+      font-size: 16px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text-dark);
+      padding: 40px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .footer-brand span {
+      color: var(--green-light);
+    }
+
+    .footer-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .hero-left {
+        padding: 60px 32px 40px;
+      }
+
+      .hero-right {
+        padding: 0 32px 60px;
+      }
+
+      .video-wrapper {
+        max-width: 260px;
+        margin: 0 auto;
+      }
+
+      .features {
+        padding: 60px 32px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta {
+        padding: 60px 32px;
+      }
+
+      footer {
+        padding: 32px;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="badge">
+        <div class="badge-dot"></div>
+        Prototipo v1.0
+      </div>
+
+      <h1 class="hero-title">
+        Tu salud,<br>
+        <span>guiada por</span><br>
+        profesionales.
+      </h1>
+
+      <p class="hero-subtitle">
+        Vita Salud es una aplicación de seguimiento de salud y nutrición diseñada por enfermeros. Registra tus hábitos, aprende con contenido respaldado por ciencia y recibe orientación adaptada a ti.
+      </p>
+
+      <div class="btn-group">
+        <a class="btn btn-primary" href="https://github.com/JLucasGaldino/vita_salud_releases/releases/tag/v1.0.0" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          <div class="btn-label">
+            <span>Descargar APK</span>
+            <small>GitHub Releases · Android</small>
+          </div>
+        </a>
+
+        <a class="btn btn-secondary" href="https://appdistribution.firebase.google.com/testerapps/1:630600601046:android:18cc77552678569f23e877/releases/76l5hv4d82eu8?utm_source=firebase-console" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          <div class="btn-label">
+            <span>Firebase App Tester</span>
+            <small>Para evaluadores técnicos</small>
+          </div>
+        </a>
+      </div>
+
+      <div class="authors">
+        <div class="author-avatars">
+          <div class="avatar">L</div>
+          <div class="avatar">D</div>
+        </div>
+        <div class="author-text">
+          Construido por <strong>Lucas & Deya</strong><br>
+          Enfermeros · Nutricionista · Programador
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="video-wrapper">
+        <div class="video-glow"></div>
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/4BHz82t3t1M"
+            title="Vita Salud Demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <p class="section-label">Funcionalidades</p>
+    <h2 class="section-title">Todo lo que necesitas para cuidar tu salud.</h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3 class="feature-title">Registro diario</h3>
+        <p class="feature-desc">Registra tus hábitos cada día — comida, agua, sueño, ejercicio, meditación y más. Visualiza tu progreso en el calendario mensual.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3 class="feature-title">Aprende con ciencia</h3>
+        <p class="feature-desc">Accede a artículos, guías y vídeos elaborados por profesionales de la salud. Busca por categoría o por palabra clave.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🧬</div>
+        <h3 class="feature-title">Personalizado para ti</h3>
+        <p class="feature-desc">Configura tu perfil con tu género, edad, condiciones fisiológicas y de salud. El contenido se adapta a tu situación específica.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">❤️</div>
+        <h3 class="feature-title">Hábitos a medida</h3>
+        <p class="feature-desc">Añade y elimina acciones según tu rutina. Cada hábito queda registrado con notas para que puedas revisar tu historial.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🌿</div>
+        <h3 class="feature-title">Diseño clínico</h3>
+        <p class="feature-desc">Pensado por enfermeros para ser claro, honesto y útil. Sin pseudociencia. Sin promesas vacías. Solo información de calidad.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🚀</div>
+        <h3 class="feature-title">Solo el comienzo</h3>
+        <p class="feature-desc">Este es el prototipo inicial. En desarrollo: seguimiento nutricional avanzado, compañero de IA, versión iOS y mucho más.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2 class="cta-title">Descarga Vita Salud</h2>
+    <p class="cta-sub">Disponible para Android · Gratis durante el periodo de evaluación</p>
+    <div class="cta-buttons">
+      <a class="btn btn-primary" href="https://github.com/JLucasGaldino/vita_salud_releases/releases/tag/v1.0.0" target="_blank">
+        ↓ Descargar APK — GitHub
+      </a>
+      <a class="btn btn-secondary" href="https://appdistribution.firebase.google.com/testerapps/1:630600601046:android:18cc77552678569f23e877/releases/76l5hv4d82eu8?utm_source=firebase-console" target="_blank">
+        Firebase App Tester
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">Vita <span>Salud</span></div>
+    <div class="footer-text">© 2026 Vita · Construido con cuidado por Lucas & Deya</div>
+  </footer>
+
+  <script>
+    // Scroll reveal for feature cards
+    const cards = document.querySelectorAll('.feature-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    cards.forEach(card => observer.observe(card));
+  </script>
+
+</body>
+</html>
