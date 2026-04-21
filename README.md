@@ -8,4 +8,4 @@ Desarrollada por **Lucas Galdino** y **Deyanira Navarro** — enfermeros con exp
 
 ---
 
-🌿 **[Visitar página · Descargar app](https://lucasgaldino.github.io/vita_salud_releases)**
+🌿 **[Visitar página · Descargar app](https://garden.lucasgaldino.com/vita_salud_releases)**
